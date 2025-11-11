@@ -5,7 +5,10 @@ const Home = () => (
   <div className="home">
     <div className="home-content">
       <header className="home-header">
-        <h1>RéviPermis</h1>
+        <div className="home-title-container">
+          <img src="/logo.png" alt="RéviPermis" className="home-logo" />
+          <h1>RéviPermis</h1>
+        </div>
         <p className="home-subtitle">
           Préparez-vous efficacement pour l'examen du permis de conduire
         </p>

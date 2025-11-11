@@ -638,7 +638,7 @@
     "vehicule": {
       "question": "Vérifiez l'état et la propreté des dispositifs réfléchissants.",
       "answer": {
-        "text": "Vérification des dispositifs, propres et en bon état (toute anomalie doit être signalée).",
+        "text": "Vérification des dispositifs, propres et en bon état (toute anomalie doit être signalée). Plaque d'immatriculation avant et arrière propre et visible. Vérifiez également les dispositifs réfléchissants qui se trouvent dans le bloc des feux. Leur aspect ressemble à un nid de guêpe.",
         "image": ""
       }
     },
@@ -800,7 +800,7 @@
     "vehicule": {
       "question": "Sans l'actionner, montrez la commande de l'avertisseur sonore.",
       "answer": {
-        "text": "Réponse à compléter",
+        "text": "L'avertisseur sonore (klaxon) se situe généralement sur la partie centrale du volant, repérable avec le logo.",
         "image": ""
       }
     },
@@ -870,7 +870,7 @@
     "vehicule": {
       "question": "A l'aide de la plaque indicative, donnez la pression préconisée pour les pneumatiques arrières, véhicule chargé.",
       "answer": {
-        "text": "Réponse à compléter",
+        "text": "Elles sont indiquées :\n- soit sur une plaque sur une portière.\n- soit dans la notice d'utilisation du véhicule.\n- soit au niveau de la trappe à carburant.",
         "image": ""
       }
     },
@@ -940,7 +940,7 @@
     "vehicule": {
       "question": "Vérifiez la présence de l'attestation d'assurance du véhicule et de sa vignette sur le pare-brise.",
       "answer": {
-        "text": "Réponse à compléter",
+        "text": "Boite à gants",
         "image": ""
       }
     },
@@ -962,7 +962,7 @@
     "vehicule": {
       "question": "Indiquez où se situe la sécurité enfant sur l'une des portières à l’arrière du véhicule.",
       "answer": {
-        "text": "Réponse à compléter",
+        "text": "Elle est repérable par un pictogramme de sécurité enfant.",
         "image": ""
       }
     },
@@ -1031,7 +1031,7 @@
     "vehicule": {
       "question": "Montrez comment régler la hauteur de l'appui-tête du siège conducteur.",
       "answer": {
-        "text": "19",
+        "text": "- pour le monter, tirez-le vers le haut ;\n- pour le descendre, appuyez simultanément sur l’ergot A et sur l’appui-tête.",
         "image": ""
       }
     },
@@ -1210,7 +1210,7 @@
     "vehicule": {
       "question": "Vérifiez la présence du constat amiable dans le véhicule.",
       "answer": {
-        "text": "Réponse à compléter",
+        "text": "se situe dans la boite à gants.",
         "image": ""
       }
     },
@@ -1490,7 +1490,7 @@
     "vehicule": {
       "question": "Montrez où se situent les gicleurs de lave-glace avant.",
       "answer": {
-        "text": "Réponse à compléter",
+        "text": "Indiquez les 2 gicleurs placés sur le capot du véhicule.",
         "image": ""
       }
     },
