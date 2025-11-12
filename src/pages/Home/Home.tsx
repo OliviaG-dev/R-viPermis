@@ -86,6 +86,9 @@ const Home = () => (
         </div>
 
         <div className="cta-section">
+          <Link to="/revision" className="revision-btn">
+            Réviser
+          </Link>
           <Link to="/quiz" className="start-btn">
             Commencer le quiz
           </Link>

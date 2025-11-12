@@ -1,0 +1,22 @@
+.revision {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.revision h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.revision p {
+  color: #ffffff;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
