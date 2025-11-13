@@ -8,13 +8,17 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 
 - 📚 **100 questions officielles** du permis de conduire
 - 🎯 **3 types de questions** par thème :
-  - Vérifications techniques (véhicule)
+  - Vérifications techniques (véhicule) avec images illustratives
   - Questions de sécurité routière (QSER)
   - Notions de premiers secours
 - 📊 **Thèmes organisés** : Vérifications intérieures et extérieures
 - ✅ **Réponses multiples** : Détection automatique des réponses à plusieurs points
+- 🔄 **Mode révision** : Navigation entre les questions avec boutons précédent/suivant/aléatoire
+- 👁️ **Réponses masquées** : Bouton "Afficher" pour révéler les réponses et tester vos connaissances
+- 🖼️ **Images illustratives** : Support des images pour les vérifications techniques
 - 🎨 **Interface moderne** et intuitive
-- 📱 **Responsive** : Fonctionne sur desktop et mobile
+- 📱 **Responsive** : Optimisé pour desktop et mobile avec adaptation automatique
+- 🌙 **Mode sombre** : Support automatique du mode sombre (via `prefers-color-scheme`)
 
 ## 🛠️ Technologies utilisées
 
@@ -40,17 +44,20 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 
 ```
 revipermis/
-├── public/                 # Fichiers statiques (favicon, logo, etc.)
+├── public/                 # Fichiers statiques
+│   ├── Img/              # Images des questions (Q01-65.png, etc.)
+│   └── logo.png          # Logo de l'application
 ├── scripts/                # Scripts Node.js
 │   ├── parse-permis.ts    # Script de parsing du PDF
 │   ├── README.md          # Documentation du script
 │   └── VERIFICATIONS EXAMEN PERMIS 2019.pdf
 ├── src/
-│   ├── assets/            # Images, icônes, sons
+│   ├── assets/            # Assets de développement
 │   ├── components/        # Composants réutilisables
 │   ├── pages/             # Pages principales
 │   │   ├── Home/         # Page d'accueil
-│   │   └── Quiz/         # Page du quiz
+│   │   ├── Quiz/         # Page du quiz (à implémenter)
+│   │   └── Revision/     # Page de révision (implémentée)
 │   ├── data/              # Données de l'application
 │   │   ├── questions.json # Questions formatées (100 questions)
 │   │   └── questions.ts   # Interfaces TypeScript et données
@@ -127,8 +134,14 @@ npm run parse-permis # Parse le PDF et génère questions.json
 
 ### Navigation
 
-1. **Page d'accueil** : Présente le projet et un bouton pour commencer le quiz
-2. **Page Quiz** : Affiche les questions et permet de répondre (à implémenter)
+1. **Page d'accueil** : Présente le projet avec des boutons pour accéder à la révision ou au quiz
+2. **Page Révision** : Mode révision interactif avec :
+   - Navigation entre les questions (précédent, suivant, aléatoire)
+   - Affichage des 3 sections par question (Véhicule, QSER, Secours)
+   - Boutons "Afficher" pour révéler les réponses
+   - Images illustratives pour les vérifications techniques
+   - Compteur de progression (Question X / 100)
+3. **Page Quiz** : Mode quiz interactif (à implémenter)
 
 ### Structure des questions
 
@@ -167,8 +180,10 @@ Le projet contient **100 questions officielles** extraites du document "VERIFICA
 ## 🎨 Styles
 
 - Chaque page et composant a son propre fichier CSS
-- Support du mode sombre (via `prefers-color-scheme`)
-- Design responsive et moderne
+- Support du mode sombre automatique (via `prefers-color-scheme`)
+- Design responsive et moderne avec optimisations mobile
+- Interface adaptative selon la taille d'écran
+- Animations et transitions fluides
 
 ## 🔧 Configuration
 
@@ -187,6 +202,15 @@ Configuration Vite pour le développement et la production :
 - Hot Module Replacement (HMR) activé
 - Build optimisé pour la production
 - Support des imports de fichiers JSON
+- Assets statiques dans `public/` servis à la racine
+
+### Images
+
+Les images des questions sont stockées dans `public/Img/` et accessibles via les chemins `/Img/...` :
+
+- Compatible avec tous les déploiements (Vercel, Netlify, etc.)
+- Optimisées pour le web
+- Support des formats PNG
 
 ## 📚 Documentation
 
@@ -194,17 +218,37 @@ Configuration Vite pour le développement et la production :
 - **scripts/README.md** : Documentation du script de parsing
 - **src/data/questions.ts** : Interfaces TypeScript pour les questions
 
+## 🚀 Déploiement
+
+### Vercel (Recommandé)
+
+Le projet est prêt pour le déploiement sur Vercel :
+
+1. **Connecter votre repository** à Vercel
+2. **Configuration automatique** : Vercel détecte automatiquement Vite
+3. **Build** : `npm run build` est exécuté automatiquement
+4. **Images** : Les images dans `public/Img/` sont servies correctement
+
+Les images sont optimisées et accessibles via les chemins `/Img/...` en production.
+
+### Autres plateformes
+
+Le projet peut également être déployé sur :
+
+- **Netlify** : Configuration similaire à Vercel
+- **GitHub Pages** : Nécessite une configuration spécifique pour le routing
+- **Autres** : Toute plateforme supportant les applications React/Vite
+
 ## 🚧 Fonctionnalités à venir
 
-- [ ] Implémentation complète de la page Quiz
-- [ ] Système de score et de progression
+- [ ] Implémentation complète de la page Quiz avec système de score
 - [ ] Timer pour les questions
-- [ ] Mode révision (par thème)
-- [ ] Mode examen (questions aléatoires)
-- [ ] Statistiques de performance
-- [ ] Sauvegarde locale des résultats
-- [ ] Mode sombre/clair manuel
-- [ ] Support des images pour les réponses
+- [ ] Mode révision par thème (filtrer par vérifications intérieures/extérieures)
+- [ ] Mode examen (questions aléatoires avec score final)
+- [ ] Statistiques de performance et progression
+- [ ] Sauvegarde locale des résultats et historique
+- [ ] Mode sombre/clair manuel (toggle)
+- [ ] Recherche de questions par mot-clé
 
 ## 🤝 Contribution
 

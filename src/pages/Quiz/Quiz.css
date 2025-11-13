@@ -17,6 +17,26 @@
 .quiz p {
   font-size: 1.1rem;
   color: #666;
+  margin-bottom: 2rem;
+}
+
+.quiz-home-btn {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: transparent;
+  color: #667eea;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.quiz-home-btn:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,6 +46,17 @@
   
   .quiz p {
     color: rgba(255, 255, 255, 0.6);
+  }
+
+  .quiz-home-btn {
+    border-color: #4b5563;
+    color: #818cf8;
+  }
+
+  .quiz-home-btn:hover {
+    background: #818cf8;
+    color: white;
+    border-color: #818cf8;
   }
 }
 

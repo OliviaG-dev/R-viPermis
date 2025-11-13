@@ -90,7 +90,7 @@ const Home = () => (
             Réviser
           </Link>
           <Link to="/quiz" className="start-btn">
-            Commencer le quiz
+            Quiz
           </Link>
         </div>
       </div>

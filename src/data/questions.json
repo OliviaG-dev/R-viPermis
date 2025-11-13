@@ -7,7 +7,7 @@
       "question": "Montrez la commande de réglage de hauteur des feux.",
       "answer": {
         "text": "Dispositif situé en général à gauche du volant.",
-        "image": "/src/assets/Img/Q01-65.png"
+        "image": "/Img/Q01-65.png"
       }
     },
     "qser": {
@@ -29,7 +29,7 @@
       "question": "Montrez où s'effectue le remplissage du produit lave-glace.",
       "answer": {
         "text": "Le candidat ouvre le capot et montre le bocal. Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q02-50.png"
+        "image": "/Img/Q02-50.png"
       }
     },
     "qser": {
@@ -55,7 +55,7 @@
       "question": "Mettez le rétroviseur intérieur en position \"nuit\".",
       "answer": {
         "text": "Si le rétroviseur de l'accompagnateur gène la manipulation du dispositif, l'explication suffit. Si le véhicule possède un système automatique de mise en position \"nuit\" du rétroviseur intérieur, le candidat l'indique.",
-        "image": "/src/assets/Img/Q03-67.png"
+        "image": "/Img/Q03-67.png"
       }
     },
     "qser": {
@@ -174,7 +174,7 @@
       "question": "Montrez où s'effectue le contrôle du niveau du liquide de frein.",
       "answer": {
         "text": "Le candidat montre que le niveau est entre le mini et le maxi. Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q08-70.png"
+        "image": "/Img/Q08-70.png"
       }
     },
     "qser": {
@@ -243,8 +243,8 @@
     "vehicule": {
       "question": "Montrez l'indicateur de niveau de carburant.",
       "answer": {
-        "text": "6",
-        "image": ""
+        "text": "",
+        "image": "/Img/Q11.png"
       }
     },
     "qser": {
@@ -270,7 +270,7 @@
       "question": "Montrez où s'effectue le remplissage du liquide de refroidissement.",
       "answer": {
         "text": "Le candidat ouvre le capot et montre le bocal. Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q12-72.png"
+        "image": "/Img/Q12-72.png"
       }
     },
     "qser": {
@@ -292,7 +292,7 @@
       "question": "Actionnez le dégivrage de la lunette arrière et montrez le voyant ou le repère correspondant.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q13-73.png"
+        "image": "/Img/Q13-73.png"
       }
     },
     "qser": {
@@ -336,7 +336,7 @@
       "question": "Montrez le voyant d'alerte signalant une pression insuffisante d'huile dans le moteur.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q15-75.png"
+        "image": "/Img/Q15-75.png"
       }
     },
     "qser": {
@@ -481,7 +481,7 @@
       "question": "Positionnez la commande pour diriger l'air vers le pare-brise.",
       "answer": {
         "text": "La position auto (désembuage automatique) peut être utilisée si le véhicule en est équipé.",
-        "image": "/src/assets/Img/Q21-79.png"
+        "image": "/Img/Q21-79.png"
       }
     },
     "qser": {
@@ -507,7 +507,7 @@
       "question": "Montrez où doit s'effectuer le contrôle du niveau d'huile moteur.",
       "answer": {
         "text": "Le candidat montre la jauge. Pas de manipulation exigée. Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q22-36-80.png"
+        "image": "/Img/Q22-36-80.png"
       }
     },
     "qser": {
@@ -551,7 +551,7 @@
       "question": "Montrez l'emplacement de la batterie du véhicule.",
       "answer": {
         "text": "Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q24.png"
+        "image": "/Img/Q24.png"
       }
     },
     "qser": {
@@ -573,7 +573,7 @@
       "question": "De quelle couleur est le voyant qui indique une défaillance du système de freinage ?",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q25-55-81.png"
+        "image": "/Img/Q25-55-81.png"
       }
     },
     "qser": {
@@ -617,7 +617,7 @@
       "question": "Montrez le voyant d'alerte signalant une température trop élevée du liquide de refroidissement.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q27-83.png"
+        "image": "/Img/Q27-83.png"
       }
     },
     "qser": {
@@ -639,7 +639,7 @@
       "question": "Vérifiez l'état et la propreté des dispositifs réfléchissants.",
       "answer": {
         "text": "Vérification des dispositifs, propres et en bon état (toute anomalie doit être signalée). Plaque d'immatriculation avant et arrière propre et visible. Vérifiez également les dispositifs réfléchissants qui se trouvent dans le bloc des feux. Leur aspect ressemble à un nid de guêpe.",
-        "image": "/src/assets/Img/Q28.png"
+        "image": "/Img/Q28.png"
       }
     },
     "qser": {
@@ -661,7 +661,7 @@
       "question": "Montrez le voyant signalant la mauvaise fermeture d'une portière.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q29.png"
+        "image": "/Img/Q29.png"
       }
     },
     "qser": {
@@ -709,7 +709,7 @@
       "question": "Actionnez les feux de détresse.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q31-85.png"
+        "image": "/Img/Q31-85.png"
       }
     },
     "qser": {
@@ -735,7 +735,7 @@
       "question": "Sur le flanc d'un pneumatique, désignez le repère du témoin d'usure de la bande de roulement.",
       "answer": {
         "text": "14",
-        "image": "/src/assets/Img/Q32-84.png"
+        "image": "/Img/Q32-84.png"
       }
     },
     "qser": {
@@ -757,7 +757,7 @@
       "question": "Montrez la commande permettant d'actionner le régulateur de vitesse.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q33.png"
+        "image": "/Img/Q33.png"
       }
     },
     "qser": {
@@ -779,7 +779,7 @@
       "question": "Ouvrez la trappe à carburant et/ou vérifiez la bonne fermeture du bouchon.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q34.png"
+        "image": "/Img/Q34.png"
       }
     },
     "qser": {
@@ -827,7 +827,7 @@
       "question": "Montrez où s'effectue le remplissage de l'huile moteur.",
       "answer": {
         "text": "Le candidat montre le bouchon de remplissage. Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q22-36-80.png"
+        "image": "/Img/Q22-36-80.png"
       }
     },
     "qser": {
@@ -849,7 +849,7 @@
       "question": "Montrez la commande permettant de désactiver l'airbag du passager avant.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q37-87.png"
+        "image": "/Img/Q37-87.png"
       }
     },
     "qser": {
@@ -871,7 +871,7 @@
       "question": "A l'aide de la plaque indicative, donnez la pression préconisée pour les pneumatiques arrières, véhicule chargé.",
       "answer": {
         "text": "Elles sont indiquées :\n- soit sur une plaque sur une portière.\n- soit dans la notice d'utilisation du véhicule.\n- soit au niveau de la trappe à carburant.",
-        "image": "/src/assets/Img/Q38-86.png"
+        "image": "/Img/Q38-86.png"
       }
     },
     "qser": {
@@ -893,7 +893,7 @@
       "question": "Montrez le voyant signalant l'absence de bouclage de la ceinture de sécurité du conducteur.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q39-89.png"
+        "image": "/Img/Q39-89.png"
       }
     },
     "qser": {
@@ -963,7 +963,7 @@
       "question": "Indiquez où se situe la sécurité enfant sur l'une des portières à l'arrière du véhicule.",
       "answer": {
         "text": "Elle est repérable par un pictogramme de sécurité enfant.",
-        "image": "/src/assets/Img/Q42-88.png"
+        "image": "/Img/Q42-88.png"
       }
     },
     "qser": {
@@ -985,7 +985,7 @@
       "question": "Allumez le(s) feu(x) de brouillard arrière(s) et montrez le voyant correspondant.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q43-47-91.png"
+        "image": "/Img/Q43-47-91.png"
       }
     },
     "qser": {
@@ -1076,7 +1076,7 @@
       "question": "De quelle couleur est le voyant qui indique au conducteur que le feu de brouillard arrière est allumé ?",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q43-47-91.png"
+        "image": "/Img/Q43-47-91.png"
       }
     },
     "qser": {
@@ -1101,7 +1101,7 @@
       "question": "Ouvrez et refermez le capot, puis vérifiez sa bonne fermeture.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q48-64.png"
+        "image": "/Img/Q48-64.png"
       }
     },
     "qser": {
@@ -1123,7 +1123,7 @@
       "question": "Montrez la commande de recyclage de l'air.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q49-93.png"
+        "image": "/Img/Q49-93.png"
       }
     },
     "qser": {
@@ -1145,7 +1145,7 @@
       "question": "Montrez l'orifice de remplissage du produit lave-glace.",
       "answer": {
         "text": "Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q02-50.png"
+        "image": "/Img/Q02-50.png"
       }
     },
     "qser": {
@@ -1167,7 +1167,7 @@
       "question": "Allumez les feux de route et montrez le voyant correspondant.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q51-95.png"
+        "image": "/Img/Q51-95.png"
       }
     },
     "qser": {
@@ -1259,7 +1259,7 @@
       "question": "De quelle couleur est le voyant qui indique une défaillance du système de freinage.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q25-55-81.png"
+        "image": "/Img/Q25-55-81.png"
       }
     },
     "qser": {
@@ -1281,7 +1281,7 @@
       "question": "Montrez où s'effectue le changement d'une ampoule à l'avant du véhicule.",
       "answer": {
         "text": "Si le candidat a des difficultés pour ouvrir le capot, l'accompagnateur peut lui indiquer comment procéder.",
-        "image": "/src/assets/Img/Q56-96.png"
+        "image": "/Img/Q56-96.png"
       }
     },
     "qser": {
@@ -1307,7 +1307,7 @@
       "question": "Si le véhicule en est équipé, montrez la commande du limiteur de vitesse.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q57.png"
+        "image": "/Img/Q57.png"
       }
     },
     "qser": {
@@ -1333,7 +1333,7 @@
       "question": "Montrez où s'effectue le changement d'une ampoule à l'arrière du véhicule.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q58-98.png"
+        "image": "/Img/Q58-98.png"
       }
     },
     "qser": {
@@ -1355,7 +1355,7 @@
       "question": "Faites fonctionner l'essuie-glace arrière du véhicule.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q59-97.png"
+        "image": "/Img/Q59-97.png"
       }
     },
     "qser": {
@@ -1403,7 +1403,7 @@
       "question": "Indiquez où se situe les attaches de type Isofix dans le véhicule.",
       "answer": {
         "text": "Pour info : les attaches de type Isofix sont obligatoires sur les véhicules neufs depuis 2011.",
-        "image": "/src/assets/Img/Q61.png"
+        "image": "/Img/Q61.png"
       }
     },
     "qser": {
@@ -1447,7 +1447,7 @@
       "question": "Montrez sur le tableau de bord le voyant indiquant une baisse de pression d'air d'un pneumatique.",
       "answer": {
         "text": "Pour info: obligatoire sur tous les véhicules neufs mis en circulation à compter du 01/11/2014.",
-        "image": "/src/assets/Img/Q63-99.png"
+        "image": "/Img/Q63-99.png"
       }
     },
     "qser": {
@@ -1469,7 +1469,7 @@
       "question": "Procédez à l'ouverture du capot puis à sa fermeture en vous assurant de son verrouillage.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q48-64.png"
+        "image": "/Img/Q48-64.png"
       }
     },
     "qser": {
@@ -1491,7 +1491,7 @@
       "question": "Montrez où se situent les gicleurs de lave-glace avant.",
       "answer": {
         "text": "Indiquez les 2 gicleurs placés sur le capot du véhicule.",
-        "image": "/src/assets/Img/Q66-100.png"
+        "image": "/Img/Q66-100.png"
       }
     },
     "qser": {
@@ -1513,7 +1513,7 @@
       "question": "Mettez le rétroviseur intérieur en position \"nuit\". Si le rétroviseur de l'accompagnateur gène la manipulation du dispositif, l'explication suffit.",
       "answer": {
         "text": "Si le véhicule possède un système automatique de mise en position \"nuit\" du rétroviseur intérieur, le candidat l'indique.",
-        "image": "/src/assets/Img/Q03-67.png"
+        "image": "/Img/Q03-67.png"
       }
     },
     "qser": {
@@ -1539,7 +1539,7 @@
       "question": "Faites fonctionner les essuie-glaces avants du véhicule sur la position la plus rapide.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q69.png"
+        "image": "/Img/Q69.png"
       }
     },
     "qser": {
@@ -1583,7 +1583,7 @@
       "question": "Montrez le voyant d'alerte signalant une pression insuffisante d'huile dans le moteur.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q15-75.png"
+        "image": "/Img/Q15-75.png"
       }
     },
     "qser": {
@@ -1631,7 +1631,7 @@
       "question": "Positionnez la commande pour diriger l'air vers le pare-brise.",
       "answer": {
         "text": "La position auto (désembuage automatique) peut être utilisée si le véhicule en est équipé.",
-        "image": "/src/assets/Img/Q21-79.png"
+        "image": "/Img/Q21-79.png"
       }
     },
     "qser": {
@@ -1657,7 +1657,7 @@
       "question": "De quelle couleur est le voyant qui indique une défaillance du système de freinage ?",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q25-55-81.png"
+        "image": "/Img/Q25-55-81.png"
       }
     },
     "qser": {
@@ -1679,7 +1679,7 @@
       "question": "Actionnez les feux de détresse.",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q31-85.png"
+        "image": "/Img/Q31-85.png"
       }
     },
     "qser": {
@@ -1705,7 +1705,7 @@
       "question": "Montrez le voyant indiquant une baisse de pression d'air d'un pneumatique ?",
       "answer": {
         "text": "Pour info : obligatoire sur tous les véhicules neufs mis en circulation à compter du 01/11/2014.",
-        "image": "/src/assets/Img/Q63-99.png"
+        "image": "/Img/Q63-99.png"
       }
     },
     "qser": {
@@ -1727,7 +1727,7 @@
       "question": "Montrez où se situent les gicleurs de lave-glace avant ?",
       "answer": {
         "text": "Réponse à compléter",
-        "image": "/src/assets/Img/Q66-100.png"
+        "image": "/Img/Q66-100.png"
       }
     },
     "qser": {
