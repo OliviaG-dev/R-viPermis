@@ -151,6 +151,8 @@
   border-radius: 8px;
   color: white;
   flex-shrink: 0;
+  gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .question-id {
@@ -161,6 +163,13 @@
 .question-theme {
   font-size: 0.875rem;
   opacity: 0.95;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.theme-label-mobile {
+  display: none;
 }
 
 .question-sections {
@@ -464,6 +473,9 @@
 }
 
 @media (max-width: 768px) {
+  .revision-counter {
+    display: none;
+  }
   .revision {
     padding: 0.5rem;
   }
@@ -489,10 +501,15 @@
   }
 
   .question-header {
-    flex-direction: column;
-    gap: 0.25rem;
-    align-items: flex-start;
     padding: 0.5rem;
+  }
+
+  .theme-label-desktop {
+    display: none;
+  }
+
+  .theme-label-mobile {
+    display: inline;
   }
 
   .question-sections {

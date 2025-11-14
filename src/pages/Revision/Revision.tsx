@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import { questions } from "../../data/questions";
 import "./Revision.css";
 
+const getMobileThemeLabel = (theme: string) => {
+  const normalizedTheme = theme.toLowerCase();
+  if (normalizedTheme.includes("intérieur")) {
+    return "Interne";
+  }
+  if (normalizedTheme.includes("extérieur")) {
+    return "Externe";
+  }
+  return theme;
+};
+
 const Revision = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswers, setShowAnswers] = useState({
@@ -12,6 +23,7 @@ const Revision = () => {
   });
 
   const currentQuestion = questions[currentIndex];
+  const mobileThemeLabel = getMobileThemeLabel(currentQuestion.theme);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? questions.length - 1 : prev - 1));
@@ -89,7 +101,12 @@ const Revision = () => {
           <div className="question-card">
             <div className="question-header">
               <span className="question-id">Question {currentQuestion.id}</span>
-              <span className="question-theme">{currentQuestion.theme}</span>
+              <span className="question-theme">
+                <span className="theme-label-desktop">
+                  {currentQuestion.theme}
+                </span>
+                <span className="theme-label-mobile">{mobileThemeLabel}</span>
+              </span>
             </div>
 
             <div className="question-sections">
