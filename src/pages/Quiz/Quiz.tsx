@@ -49,6 +49,7 @@ type CategoryStatus = "correct" | "incorrect" | null;
 type PendingAdvance =
   | { type: "category"; target: QuizCategory }
   | { type: "question" }
+  | { type: "result" }
   | null;
 
 const categoryConfig: Record<
@@ -195,10 +196,24 @@ const Quiz = () => {
   const [categoryStatuses, setCategoryStatuses] = useState<
     Record<QuizCategory, CategoryStatus>
   >(createEmptyStatuses());
-  const maxPoints = 10;
-  const totalCorrect =
-    stats.vehicule.correct + stats.qser.correct + stats.secours.correct;
-  const displayedPoints = Math.min(totalCorrect, maxPoints);
+  const [questionScores, setQuestionScores] = useState<
+    { correct: number; total: number }[]
+  >([]);
+  const [showResults, setShowResults] = useState(false);
+  const maxQuestions = 5;
+  const currentQuestionCorrect =
+    Object.values(categoryStatuses).filter((status) => status === "correct")
+      .length ?? 0;
+
+  const finalizeCurrentQuestion = useCallback(() => {
+    setQuestionScores((prev) => {
+      if (prev.length >= maxQuestions) {
+        return prev;
+      }
+      const nextEntry = { correct: currentQuestionCorrect, total: 3 };
+      return [...prev, nextEntry];
+    });
+  }, [currentQuestionCorrect, maxQuestions]);
 
   const pickRandomQuestion = useCallback(
     (previousId?: number): QuizQuestion => {
@@ -223,7 +238,14 @@ const Quiz = () => {
   );
 
   const handleNextQuestion = useCallback(
-    (options?: { previousId?: number; preserveCategory?: boolean }) => {
+    (options?: {
+      previousId?: number;
+      preserveCategory?: boolean;
+      finalizeCurrent?: boolean;
+    }) => {
+      if (options?.finalizeCurrent) {
+        finalizeCurrentQuestion();
+      }
       const next = pickRandomQuestion(options?.previousId ?? current.id);
       setCurrent(next);
       setSelectedChoices([]);
@@ -231,11 +253,12 @@ const Quiz = () => {
       setWasCorrect(false);
       setPendingAdvance(null);
       setCategoryStatuses(createEmptyStatuses());
+      setShowResults(false);
       if (!options?.preserveCategory) {
         setCategory("vehicule");
       }
     },
-    [current.id, pickRandomQuestion]
+    [current.id, pickRandomQuestion, finalizeCurrentQuestion]
   );
 
   const onCategoryChange = useCallback((nextCategory: QuizCategory) => {
@@ -245,6 +268,27 @@ const Quiz = () => {
     setWasCorrect(false);
     setPendingAdvance(null);
   }, []);
+
+  const progressEntries = useMemo(() => {
+    return Array.from({ length: maxQuestions }, (_, index) => {
+      if (index < questionScores.length) {
+        const score = questionScores[index].correct;
+        return {
+          value: `${score}/3`,
+          state: "completed" as const,
+          score,
+        };
+      }
+      if (index === questionScores.length) {
+        return {
+          value: `${currentQuestionCorrect}/3`,
+          state: "current" as const,
+          score: currentQuestionCorrect,
+        };
+      }
+      return { value: "-/3", state: "upcoming" as const, score: null };
+    });
+  }, [questionScores, currentQuestionCorrect, maxQuestions]);
 
   const isVehicleCategory = category === "vehicule";
   const activeQuestion = isVehicleCategory
@@ -544,7 +588,12 @@ const Quiz = () => {
     }));
 
     const currentIndex = categoryOrder.indexOf(category);
-    if (currentIndex >= 0 && currentIndex < categoryOrder.length - 1) {
+    const isLastCategory = currentIndex === categoryOrder.length - 1;
+    const isLastQuestion = questionScores.length >= maxQuestions - 1;
+
+    if (isLastCategory && isLastQuestion) {
+      setPendingAdvance({ type: "result" });
+    } else if (currentIndex >= 0 && currentIndex < categoryOrder.length - 1) {
       setPendingAdvance({
         type: "category",
         target: categoryOrder[currentIndex + 1],
@@ -561,6 +610,59 @@ const Quiz = () => {
     const answerBlock =
       category === "qser" ? current.qser.answer : current.secours.answer;
     return Array.isArray(answerBlock) ? answerBlock.join(" ") : answerBlock;
+  };
+
+  const totalCorrectAll = useMemo(
+    () => questionScores.reduce((sum, q) => sum + q.correct, 0),
+    [questionScores]
+  );
+
+  const seriesPercentage = useMemo(() => {
+    if (!questionScores.length) return 0;
+    const maxScore = maxQuestions * 3;
+    return Math.round((totalCorrectAll / maxScore) * 100);
+  }, [totalCorrectAll, maxQuestions, questionScores.length]);
+
+  const resultMessage = useMemo(() => {
+    if (seriesPercentage >= 80) {
+      return "Excellent ! Tu maîtrises très bien ces vérifications, sécurité routière et gestes de secours.";
+    }
+    if (seriesPercentage >= 50) {
+      return "Bien joué ! Encore quelques séries et tu seras parfaitement à l'aise.";
+    }
+    if (seriesPercentage >= 20) {
+      return "C'est un bon début. N'hésite pas à refaire une série pour renforcer tes connaissances.";
+    }
+    return "Pas de souci, c'est justement fait pour s'entraîner. Lance une nouvelle série et progresse à ton rythme.";
+  }, [seriesPercentage]);
+
+  const resetSeries = () => {
+    const next = pickRandomQuestion(current.id);
+    setCurrent(next);
+    setSelectedChoices([]);
+    setIsValidated(false);
+    setWasCorrect(false);
+    setPendingAdvance(null);
+    setCategoryStatuses(createEmptyStatuses());
+    setQuestionScores([]);
+    setShowResults(false);
+    setCategory("vehicule");
+  };
+
+  const getScoreClass = (score: number | null) => {
+    if (score === null) {
+      return "";
+    }
+    if (score <= 0) {
+      return " progress-chip--score-0";
+    }
+    if (score === 1) {
+      return " progress-chip--score-1";
+    }
+    if (score === 2) {
+      return " progress-chip--score-2";
+    }
+    return " progress-chip--score-3";
   };
 
   return (
@@ -590,9 +692,17 @@ const Quiz = () => {
               >
                 Questions aléatoires
               </button>
-              <div className="quiz-counter">
-                <span className="counter-value">{displayedPoints}</span>
-                <span className="counter-max">/ {maxPoints}</span>
+              <div className="quiz-progress">
+                {progressEntries.map((entry, index) => (
+                  <span
+                    key={`progress-${index}`}
+                    className={`progress-chip progress-chip--${
+                      entry.state
+                    }${getScoreClass(entry.score ?? null)}`}
+                  >
+                    {entry.value}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -600,6 +710,21 @@ const Quiz = () => {
             Retour
           </Link>
         </header>
+
+        {showResults && (
+          <section className="series-result">
+            <h2>Résultat de la série</h2>
+            <p className="series-result-score">{seriesPercentage}%</p>
+            <p className="series-result-message">{resultMessage}</p>
+            <button
+              type="button"
+              className="action primary series-result-restart"
+              onClick={resetSeries}
+            >
+              Commencer une autre série de questions
+            </button>
+          </section>
+        )}
 
         <div className="category-tabs">
           {(Object.keys(categoryConfig) as QuizCategory[]).map((key) => (
@@ -728,8 +853,15 @@ const Quiz = () => {
               onClick={() => {
                 if (pendingAdvance.type === "category") {
                   onCategoryChange(pendingAdvance.target);
-                } else {
-                  handleNextQuestion({ preserveCategory: false });
+                } else if (pendingAdvance.type === "question") {
+                  handleNextQuestion({
+                    preserveCategory: false,
+                    finalizeCurrent: true,
+                  });
+                } else if (pendingAdvance.type === "result") {
+                  finalizeCurrentQuestion();
+                  setShowResults(true);
+                  setPendingAdvance(null);
                 }
               }}
             >
@@ -738,7 +870,9 @@ const Quiz = () => {
                 ? `Continuer vers ${
                     categoryConfig[pendingAdvance.target].label
                   }`
-                : "Question suivante"}
+                : pendingAdvance.type === "question"
+                ? "Question suivante"
+                : "Résultat"}
             </button>
           )}
         </div>

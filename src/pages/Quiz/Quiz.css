@@ -60,7 +60,65 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
+  width: 100%;
+}
+
+.quiz-progress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.progress-chip {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.progress-chip--completed {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: rgba(14, 165, 233, 0.4);
+}
+
+.progress-chip--current {
+  background: #ede9fe;
+  color: #5b21b6;
+  border-color: rgba(91, 33, 182, 0.4);
+}
+
+.progress-chip--upcoming {
+  background: #f3f4f6;
+  color: #9ca3af;
+  border-color: rgba(156, 163, 175, 0.3);
+}
+
+.progress-chip--score-0 {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.progress-chip--score-1 {
+  background: #ffedd5;
+  color: #c2410c;
+  border-color: rgba(251, 146, 60, 0.6);
+}
+
+.progress-chip--score-2 {
+  background: #fef9c3;
+  color: #a16207;
+  border-color: rgba(250, 204, 21, 0.6);
+}
+
+.progress-chip--score-3 {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: rgba(34, 197, 94, 0.6);
 }
 
 .random-btn {
@@ -79,27 +137,6 @@
   color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(67, 56, 202, 0.25);
-}
-
-.quiz-counter {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.25rem;
-  padding: 0.55rem 0.9rem;
-  border-radius: 999px;
-  background: #f3e8ff;
-  color: #6d28d9;
-  font-weight: 600;
-  border: 1px solid rgba(109, 40, 217, 0.3);
-}
-
-.counter-value {
-  font-size: 1.25rem;
-}
-
-.counter-max {
-  font-size: 0.9rem;
-  opacity: 0.8;
 }
 
 .quiz-home-btn {
@@ -346,6 +383,50 @@
   align-items: center;
 }
 
+.series-result {
+  margin: 1.75rem 0 1.5rem;
+  padding: 1.75rem 1.9rem;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  background: radial-gradient(
+    circle at top left,
+    #eef2ff 0,
+    #f9fafb 45%,
+    #ffffff 100%
+  );
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+  text-align: center;
+}
+
+.series-result h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #111827;
+}
+
+.series-result-score {
+  margin: 0.25rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #4c1d95;
+}
+
+.series-result-message {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.series-result-restart {
+  margin-top: 0.25rem;
+}
+
 .self-eval {
   display: flex;
   gap: 0.75rem;
@@ -459,6 +540,11 @@
     align-items: stretch;
   }
 
+  .series-result {
+    padding: 1.4rem 1.35rem;
+    margin: 1.25rem 0 1.25rem;
+  }
+
   .self-eval {
     width: 100%;
     flex-direction: column;
@@ -478,6 +564,29 @@
   .quiz-container {
     background: #0f172a;
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+  }
+
+  .series-result {
+    border-color: #1f2937;
+    background: radial-gradient(
+      circle at top left,
+      #1e293b 0,
+      #020617 50%,
+      #020617 100%
+    );
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.75);
+  }
+
+  .series-result h2 {
+    color: #e5e7eb;
+  }
+
+  .series-result-score {
+    color: #a5b4fc;
+  }
+
+  .series-result-message {
+    color: #cbd5f5;
   }
 
   .quiz-header h1 {
@@ -501,10 +610,46 @@
     color: #fff;
   }
 
-  .quiz-counter {
-    background: rgba(109, 40, 217, 0.2);
-    color: #e0e7ff;
-    border-color: #4338ca;
+  .progress-chip--completed {
+    background: rgba(14, 165, 233, 0.2);
+    color: #bae6fd;
+    border-color: rgba(14, 165, 233, 0.5);
+  }
+
+  .progress-chip--current {
+    background: rgba(91, 33, 182, 0.25);
+    color: #ddd6fe;
+    border-color: rgba(91, 33, 182, 0.5);
+  }
+
+  .progress-chip--upcoming {
+    background: rgba(107, 114, 128, 0.2);
+    color: #e5e7eb;
+    border-color: rgba(107, 114, 128, 0.4);
+  }
+
+  .progress-chip--score-0 {
+    background: rgba(248, 113, 113, 0.25);
+    color: #fecaca;
+    border-color: rgba(248, 113, 113, 0.5);
+  }
+
+  .progress-chip--score-1 {
+    background: rgba(251, 146, 60, 0.25);
+    color: #fed7aa;
+    border-color: rgba(251, 146, 60, 0.5);
+  }
+
+  .progress-chip--score-2 {
+    background: rgba(250, 204, 21, 0.25);
+    color: #fde68a;
+    border-color: rgba(250, 204, 21, 0.5);
+  }
+
+  .progress-chip--score-3 {
+    background: rgba(34, 197, 94, 0.25);
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.5);
   }
 
   .random-btn {
