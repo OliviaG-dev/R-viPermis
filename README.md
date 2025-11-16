@@ -6,6 +6,7 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 
 ## ✨ Fonctionnalités
 
+### Mode Révision
 - 📚 **100 questions officielles** du permis de conduire
 - 🎯 **3 types de questions** par thème :
   - Vérifications techniques (véhicule) avec images illustratives
@@ -13,12 +14,26 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
   - Notions de premiers secours
 - 📊 **Thèmes organisés** : Vérifications intérieures et extérieures
 - ✅ **Réponses multiples** : Détection automatique des réponses à plusieurs points
-- 🔄 **Mode révision** : Navigation entre les questions avec boutons précédent/suivant/aléatoire
+- 🔄 **Navigation fluide** : Boutons précédent/suivant/aléatoire
 - 👁️ **Réponses masquées** : Bouton "Afficher" pour révéler les réponses et tester vos connaissances
 - 🖼️ **Images illustratives** : Support des images pour les vérifications techniques
-- 🎨 **Interface moderne** et intuitive
+
+### Mode Quiz
+- ✅ **Quiz interactif avec QCM** : Questions à choix multiples avec cases à cocher
+- 🎯 **Série de 5 questions** : Parcours complet avec progression visuelle
+- 🚗 **Vérifications véhicule** : 3 images à choisir + option "Aucune des autres réponses"
+- 📝 **Sécurité routière & Secours** : 4 choix textuels avec distracteurs de la même catégorie
+- 🔄 **Navigation automatique** : Passage automatique entre les 3 catégories d'une même question
+- 📊 **Pastilles de progression** : Code couleur selon le score (rouge/orange/jaune/vert)
+- 📈 **Statistiques en temps réel** : Suivi des bonnes réponses par catégorie
+- 🎉 **Résultats détaillés** : Affichage du pourcentage et message personnalisé en fin de série
+- 🎲 **Questions aléatoires** : Bouton pour relancer une nouvelle série
+
+### Interface
+- 🎨 **Design moderne et élégant** : Interface soignée avec animations fluides
 - 📱 **Responsive** : Optimisé pour desktop et mobile avec adaptation automatique
 - 🌙 **Mode sombre** : Support automatique du mode sombre (via `prefers-color-scheme`)
+- 🎨 **Icônes SVG** : Remplacement des emojis par des icônes vectorielles
 
 ## 🛠️ Technologies utilisées
 
@@ -56,8 +71,8 @@ revipermis/
 │   ├── components/        # Composants réutilisables
 │   ├── pages/             # Pages principales
 │   │   ├── Home/         # Page d'accueil
-│   │   ├── Quiz/         # Page du quiz (à implémenter)
-│   │   └── Revision/     # Page de révision (implémentée)
+│   │   ├── Quiz/         # Page du quiz interactif avec QCM
+│   │   └── Revision/     # Page de révision
 │   ├── data/              # Données de l'application
 │   │   ├── questions.json # Questions formatées (100 questions)
 │   │   └── questions.ts   # Interfaces TypeScript et données
@@ -135,13 +150,25 @@ npm run parse-permis # Parse le PDF et génère questions.json
 ### Navigation
 
 1. **Page d'accueil** : Présente le projet avec des boutons pour accéder à la révision ou au quiz
+
 2. **Page Révision** : Mode révision interactif avec :
    - Navigation entre les questions (précédent, suivant, aléatoire)
    - Affichage des 3 sections par question (Véhicule, QSER, Secours)
    - Boutons "Afficher" pour révéler les réponses
    - Images illustratives pour les vérifications techniques
    - Compteur de progression (Question X / 100)
-3. **Page Quiz** : Mode quiz interactif (à implémenter)
+
+3. **Page Quiz** : Mode quiz interactif avec :
+   - **Série de 5 questions** : Chaque série comprend 5 questions complètes (véhicule + sécurité routière + secours)
+   - **Choix de catégorie** : Sélectionnez la catégorie à traiter (Véhicule, Sécurité routière, ou Secours)
+   - **QCM interactif** :
+     - Pour les vérifications véhicule : 3 images + option "Aucune des autres réponses"
+     - Pour les autres catégories : 4 choix textuels avec cases à cocher
+   - **Validation** : Cliquez sur "Valider" après avoir sélectionné vos réponses
+   - **Navigation automatique** : Après validation, un bouton apparaît pour passer à la catégorie suivante
+   - **Progression visuelle** : Pastilles colorées montrant votre score pour chaque question (0/3 à 3/3)
+   - **Résultats** : En fin de série, affichage du pourcentage de réussite avec message personnalisé
+   - **Nouvelle série** : Bouton "Questions aléatoires" pour commencer une nouvelle série
 
 ### Structure des questions
 
@@ -241,14 +268,14 @@ Le projet peut également être déployé sur :
 
 ## 🚧 Fonctionnalités à venir
 
-- [ ] Implémentation complète de la page Quiz avec système de score
 - [ ] Timer pour les questions
 - [ ] Mode révision par thème (filtrer par vérifications intérieures/extérieures)
-- [ ] Mode examen (questions aléatoires avec score final)
-- [ ] Statistiques de performance et progression
+- [ ] Mode examen (questions aléatoires avec score final et temps limité)
 - [ ] Sauvegarde locale des résultats et historique
 - [ ] Mode sombre/clair manuel (toggle)
 - [ ] Recherche de questions par mot-clé
+- [ ] Export des statistiques
+- [ ] Partage des résultats
 
 ## 🤝 Contribution
 
