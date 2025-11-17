@@ -36,6 +36,14 @@ type QuizQuestion = {
   secours: KnowledgeQuestion;
 };
 
+type OptionChoice = {
+  id: string;
+  text?: string;
+  imageSrc?: string;
+  isCorrect: boolean;
+  kind: "text" | "image";
+};
+
 type Stats = Record<
   QuizCategory,
   {
@@ -196,6 +204,20 @@ const Quiz = () => {
   const [categoryStatuses, setCategoryStatuses] = useState<
     Record<QuizCategory, CategoryStatus>
   >(createEmptyStatuses());
+  const [lockedChoices, setLockedChoices] = useState<
+    Record<QuizCategory, OptionChoice[] | null>
+  >({
+    vehicule: null,
+    qser: null,
+    secours: null,
+  });
+  const [validatedChoices, setValidatedChoices] = useState<
+    Record<QuizCategory, string[]>
+  >({
+    vehicule: [],
+    qser: [],
+    secours: [],
+  });
   const [questionScores, setQuestionScores] = useState<
     { correct: number; total: number }[]
   >([]);
@@ -253,6 +275,16 @@ const Quiz = () => {
       setWasCorrect(false);
       setPendingAdvance(null);
       setCategoryStatuses(createEmptyStatuses());
+      setLockedChoices({
+        vehicule: null,
+        qser: null,
+        secours: null,
+      });
+      setValidatedChoices({
+        vehicule: [],
+        qser: [],
+        secours: [],
+      });
       setShowResults(false);
       if (!options?.preserveCategory) {
         setCategory("vehicule");
@@ -261,13 +293,27 @@ const Quiz = () => {
     [current.id, pickRandomQuestion, finalizeCurrentQuestion]
   );
 
-  const onCategoryChange = useCallback((nextCategory: QuizCategory) => {
-    setCategory(nextCategory);
-    setSelectedChoices([]);
-    setIsValidated(false);
-    setWasCorrect(false);
-    setPendingAdvance(null);
-  }, []);
+  const onCategoryChange = useCallback(
+    (nextCategory: QuizCategory) => {
+      setCategory(nextCategory);
+      // Si la catégorie a déjà été validée, on restaure l'état validé et les choix
+      if (categoryStatuses[nextCategory] !== null) {
+        setIsValidated(true);
+        setWasCorrect(categoryStatuses[nextCategory] === "correct");
+        setSelectedChoices(validatedChoices[nextCategory] || []);
+      } else {
+        setSelectedChoices([]);
+        setIsValidated(false);
+        setWasCorrect(false);
+        setLockedChoices((prev) => ({
+          ...prev,
+          [nextCategory]: null,
+        }));
+      }
+      setPendingAdvance(null);
+    },
+    [categoryStatuses, validatedChoices]
+  );
 
   const progressEntries = useMemo(() => {
     return Array.from({ length: maxQuestions }, (_, index) => {
@@ -296,14 +342,6 @@ const Quiz = () => {
     : category === "qser"
     ? current.qser
     : current.secours;
-
-  type OptionChoice = {
-    id: string;
-    text?: string;
-    imageSrc?: string;
-    isCorrect: boolean;
-    kind: "text" | "image";
-  };
 
   const normalizeAnswer = (answer: string | string[]) => {
     if (!answer) {
@@ -535,18 +573,32 @@ const Quiz = () => {
     [buildKnowledgeChoices, buildVehicleChoices]
   );
 
-  const answerChoices = useMemo(
-    () => buildChoices(current, category),
-    [buildChoices, current, category]
-  );
+  const answerChoices = useMemo(() => {
+    const stored = lockedChoices[category];
+    if (stored && categoryStatuses[category] !== null) {
+      return stored;
+    }
+    return buildChoices(current, category);
+  }, [buildChoices, current, category, lockedChoices, categoryStatuses]);
 
   useEffect(() => {
+    if (categoryStatuses[category] !== null) {
+      setSelectedChoices(validatedChoices[category] || []);
+      setIsValidated(true);
+      setWasCorrect(categoryStatuses[category] === "correct");
+      return;
+    }
+
     setSelectedChoices([]);
     setIsValidated(false);
     setWasCorrect(false);
-  }, [answerChoices, current, category]);
+  }, [answerChoices, category, categoryStatuses, validatedChoices]);
 
   const toggleChoice = (choiceId: string) => {
+    // Ne pas permettre de modifier les choix si la catégorie a déjà été validée
+    if (categoryStatuses[category] !== null) {
+      return;
+    }
     setSelectedChoices((prev) =>
       prev.includes(choiceId)
         ? prev.filter((id) => id !== choiceId)
@@ -585,6 +637,15 @@ const Quiz = () => {
     setCategoryStatuses((prev) => ({
       ...prev,
       [category]: success ? "correct" : "incorrect",
+    }));
+    setLockedChoices((prev) => ({
+      ...prev,
+      [category]: answerChoices,
+    }));
+    // Stocker les choix validés pour cette catégorie
+    setValidatedChoices((prev) => ({
+      ...prev,
+      [category]: [...selectedChoices],
     }));
 
     const currentIndex = categoryOrder.indexOf(category);
@@ -644,6 +705,16 @@ const Quiz = () => {
     setWasCorrect(false);
     setPendingAdvance(null);
     setCategoryStatuses(createEmptyStatuses());
+    setLockedChoices({
+      vehicule: null,
+      qser: null,
+      secours: null,
+    });
+    setValidatedChoices({
+      vehicule: [],
+      qser: [],
+      secours: [],
+    });
     setQuestionScores([]);
     setShowResults(false);
     setCategory("vehicule");
@@ -788,7 +859,7 @@ const Quiz = () => {
                   type="checkbox"
                   checked={selectedChoices.includes(choice.id)}
                   onChange={() => toggleChoice(choice.id)}
-                  disabled={isValidated}
+                  disabled={isValidated || categoryStatuses[category] !== null}
                 />
                 <div className="option-content">
                   {choice.kind === "image" && choice.imageSrc ? (
@@ -824,18 +895,6 @@ const Quiz = () => {
         </section>
 
         <div className="quiz-actions">
-          <button
-            type="button"
-            className="action secondary"
-            onClick={() =>
-              handleNextQuestion({
-                previousId: current.id,
-                preserveCategory: false,
-              })
-            }
-          >
-            Passer
-          </button>
           <div className="self-eval">
             <button
               type="button"
