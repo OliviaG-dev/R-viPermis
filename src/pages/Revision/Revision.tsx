@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { questions } from "../../data/questions";
+import {
+  ArrowLeftIcon,
+  BookIcon,
+  RandomIcon,
+  ArrowRightIcon,
+} from "../../components/Icons";
 import "./Revision.css";
 
 const getMobileThemeLabel = (theme: string) => {
@@ -61,35 +67,12 @@ const Revision = () => {
         <header className="revision-header">
           <div className="revision-header-top">
             <Link to="/" className="back-link" aria-label="Retour à l'accueil">
-              <svg
-                className="back-arrow"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
+              <ArrowLeftIcon className="back-arrow" />
             </Link>
             <h1>
-              Révision du Permis{" "}
-              <svg
-                className="header-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 19.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5v-15c0-.8-.7-1.5-1.5-1.5h-13C4.7 3 4 3.7 4 4.5v15z" />
-                <path d="M8 8h8M8 12h8M8 16h6" />
-                <path d="M6 3v18" strokeWidth="1.5" />
-              </svg>
+              <img src="/logo.png" alt="RéviPermis" className="revision-logo" />
+              <span className="revision-title-text">Révision du Permis</span>
+              <BookIcon className="header-icon" />
             </h1>
           </div>
           <div className="revision-counter">
@@ -244,18 +227,7 @@ const Revision = () => {
               className="nav-btn nav-btn-prev"
               aria-label="Question précédente"
             >
-              <svg
-                className="nav-arrow-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
+              <ArrowLeftIcon className="nav-arrow-icon" />
               <span className="nav-btn-text">Précédent</span>
             </button>
             <button
@@ -263,25 +235,7 @@ const Revision = () => {
               className="nav-btn nav-btn-random"
               aria-label="Question aléatoire"
             >
-              <svg
-                className="nav-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="3" y="3" width="7" height="7" rx="1" />
-                <rect x="14" y="3" width="7" height="7" rx="1" />
-                <rect x="3" y="14" width="7" height="7" rx="1" />
-                <rect x="14" y="14" width="7" height="7" rx="1" />
-                <circle cx="6.5" cy="6.5" r="1" fill="currentColor" />
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-                <circle cx="6.5" cy="17.5" r="1" fill="currentColor" />
-                <circle cx="17.5" cy="17.5" r="1" fill="currentColor" />
-              </svg>
+              <RandomIcon className="nav-icon" />
               <span className="nav-btn-text">Aléatoire</span>
             </button>
             <button
@@ -289,18 +243,7 @@ const Revision = () => {
               className="nav-btn nav-btn-next"
               aria-label="Question suivante"
             >
-              <svg
-                className="nav-arrow-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <ArrowRightIcon className="nav-arrow-icon" />
               <span className="nav-btn-text">Suivant</span>
             </button>
           </div>

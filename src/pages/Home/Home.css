@@ -290,6 +290,7 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  color: #f0f0ff;
 }
 
 .start-btn:active {
@@ -318,6 +319,7 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
   background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #d1fae5;
 }
 
 .revision-btn:active {
@@ -415,6 +417,7 @@
   .start-btn:hover {
     background: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
     box-shadow: 0 6px 20px rgba(129, 140, 248, 0.5);
+    color: #f0f0ff;
   }
 
   .revision-btn {
@@ -425,6 +428,7 @@
   .revision-btn:hover {
     background: linear-gradient(135deg, #059669 0%, #10b981 100%);
     box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    color: #d1fae5;
   }
 }
 

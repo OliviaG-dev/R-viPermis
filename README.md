@@ -7,6 +7,7 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 ## ✨ Fonctionnalités
 
 ### Mode Révision
+
 - 📚 **100 questions officielles** du permis de conduire
 - 🎯 **3 types de questions** par thème :
   - Vérifications techniques (véhicule) avec images illustratives
@@ -19,7 +20,8 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 - 🖼️ **Images illustratives** : Support des images pour les vérifications techniques
 
 ### Mode Quiz
-- ✅ **Quiz interactif avec QCM** : Questions à choix multiples avec cases à cocher
+
+- ✅ **Quiz interactif avec QCM** : Questions à choix unique (radio buttons)
 - 🎯 **Série de 5 questions** : Parcours complet avec progression visuelle
 - 🚗 **Vérifications véhicule** : 3 images à choisir + option "Aucune des autres réponses"
 - 📝 **Sécurité routière & Secours** : 4 choix textuels avec distracteurs de la même catégorie
@@ -28,12 +30,16 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 - 📈 **Statistiques en temps réel** : Suivi des bonnes réponses par catégorie
 - 🎉 **Résultats détaillés** : Affichage du pourcentage et message personnalisé en fin de série
 - 🎲 **Questions aléatoires** : Bouton pour relancer une nouvelle série
+- 🔒 **Réponses verrouillées** : Une fois validées, les réponses ne peuvent plus être modifiées
 
 ### Interface
+
 - 🎨 **Design moderne et élégant** : Interface soignée avec animations fluides
 - 📱 **Responsive** : Optimisé pour desktop et mobile avec adaptation automatique
 - 🌙 **Mode sombre** : Support automatique du mode sombre (via `prefers-color-scheme`)
-- 🎨 **Icônes SVG** : Remplacement des emojis par des icônes vectorielles
+- 🎨 **Icônes SVG réutilisables** : Bibliothèque d'icônes centralisée dans `components/Icons/`
+- ⚡ **Performance optimisée** : Code splitting et lazy loading des routes pour un chargement rapide
+- 🎯 **Header unifié** : Structure cohérente entre Quiz et Révision avec logo et navigation
 
 ## 🛠️ Technologies utilisées
 
@@ -69,17 +75,21 @@ revipermis/
 ├── src/
 │   ├── assets/            # Assets de développement
 │   ├── components/        # Composants réutilisables
+│   │   └── Icons/        # Bibliothèque d'icônes SVG (TrafficLightIcon, SuccessIcon, etc.)
 │   ├── pages/             # Pages principales
 │   │   ├── Home/         # Page d'accueil
 │   │   ├── Quiz/         # Page du quiz interactif avec QCM
-│   │   └── Revision/     # Page de révision
+│   │   └── Revision/      # Page de révision
 │   ├── data/              # Données de l'application
 │   │   ├── questions.json # Questions formatées (100 questions)
 │   │   └── questions.ts   # Interfaces TypeScript et données
 │   ├── hooks/             # Hooks personnalisés React
-│   ├── types/             # Interfaces et types TypeScript
+│   │   └── useQuiz.ts    # Hook principal pour la logique du quiz
+│   ├── types/             # Interfaces et types TypeScript centralisés
+│   │   └── index.ts       # Tous les types du projet (Quiz, Questions, etc.)
 │   ├── utils/             # Fonctions utilitaires
-│   ├── App.tsx            # Composant racine de l'application
+│   │   └── index.ts       # Fonctions utilitaires (shuffle, calculateScore, etc.)
+│   ├── App.tsx            # Composant racine avec lazy loading des routes
 │   └── main.tsx           # Point d'entrée de l'application
 ├── package.json
 ├── tsconfig.json
@@ -152,6 +162,7 @@ npm run parse-permis # Parse le PDF et génère questions.json
 1. **Page d'accueil** : Présente le projet avec des boutons pour accéder à la révision ou au quiz
 
 2. **Page Révision** : Mode révision interactif avec :
+
    - Navigation entre les questions (précédent, suivant, aléatoire)
    - Affichage des 3 sections par question (Véhicule, QSER, Secours)
    - Boutons "Afficher" pour révéler les réponses
@@ -163,8 +174,9 @@ npm run parse-permis # Parse le PDF et génère questions.json
    - **Choix de catégorie** : Sélectionnez la catégorie à traiter (Véhicule, Sécurité routière, ou Secours)
    - **QCM interactif** :
      - Pour les vérifications véhicule : 3 images + option "Aucune des autres réponses"
-     - Pour les autres catégories : 4 choix textuels avec cases à cocher
-   - **Validation** : Cliquez sur "Valider" après avoir sélectionné vos réponses
+     - Pour les autres catégories : 4 choix textuels avec boutons radio (sélection unique)
+   - **Validation** : Cliquez sur "Valider" après avoir sélectionné votre réponse
+   - **Réponses verrouillées** : Une fois validée, une catégorie ne peut plus être modifiée
    - **Navigation automatique** : Après validation, un bouton apparaît pour passer à la catégorie suivante
    - **Progression visuelle** : Pastilles colorées montrant votre score pour chaque question (0/3 à 3/3)
    - **Résultats** : En fin de série, affichage du pourcentage de réussite avec message personnalisé
@@ -211,6 +223,7 @@ Le projet contient **100 questions officielles** extraites du document "VERIFICA
 - Design responsive et moderne avec optimisations mobile
 - Interface adaptative selon la taille d'écran
 - Animations et transitions fluides
+- Background unifié : Dégradé violet identique sur toutes les pages (Home, Quiz, Révision)
 
 ## 🔧 Configuration
 
@@ -239,11 +252,48 @@ Les images des questions sont stockées dans `public/Img/` et accessibles via le
 - Optimisées pour le web
 - Support des formats PNG
 
+## 🏗️ Architecture du code
+
+### Organisation modulaire
+
+Le projet suit une architecture modulaire et maintenable :
+
+- **Types centralisés** (`src/types/index.ts`) : Tous les types TypeScript sont centralisés pour éviter la duplication
+- **Hooks personnalisés** (`src/hooks/useQuiz.ts`) : Logique métier du quiz extraite dans un hook réutilisable
+- **Composants réutilisables** (`src/components/Icons/`) : Bibliothèque d'icônes SVG centralisée
+- **Utilitaires unifiés** (`src/utils/index.ts`) : Fonctions utilitaires partagées (shuffle, calculateScore, etc.)
+- **Code splitting** : Lazy loading des routes pour optimiser le bundle initial
+- **Séparation des responsabilités** : Logique métier séparée de la présentation
+
+### Structure des composants
+
+```
+src/
+├── components/Icons/      # Icônes SVG réutilisables
+│   ├── TrafficLightIcon.tsx
+│   ├── SuccessIcon.tsx
+│   ├── ErrorIcon.tsx
+│   ├── ArrowRightIcon.tsx
+│   ├── ArrowLeftIcon.tsx
+│   ├── RandomIcon.tsx
+│   ├── BookIcon.tsx
+│   ├── TargetIcon.tsx
+│   ├── DocumentIcon.tsx
+│   └── index.ts          # Export centralisé
+├── hooks/
+│   └── useQuiz.ts        # Hook principal avec toute la logique du quiz
+├── types/
+│   └── index.ts          # Types centralisés (QuizCategory, QuizQuestion, etc.)
+└── utils/
+    └── index.ts          # Fonctions utilitaires (shuffle, calculateScore)
+```
+
 ## 📚 Documentation
 
 - **README.md** (ce fichier) : Documentation générale du projet
 - **scripts/README.md** : Documentation du script de parsing
-- **src/data/questions.ts** : Interfaces TypeScript pour les questions
+- **src/types/index.ts** : Types TypeScript centralisés pour tout le projet
+- **src/hooks/useQuiz.ts** : Documentation de la logique du quiz
 
 ## 🚀 Déploiement
 
