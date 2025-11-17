@@ -50,7 +50,6 @@ const Quiz = () => {
     isVehicleCategory,
     toggleChoice,
     handleValidate,
-    handleNextQuestion,
     onCategoryChange,
     resetSeries,
     handleAdvance,
@@ -81,14 +80,9 @@ const Quiz = () => {
               <button
                 type="button"
                 className="random-btn"
-                onClick={() =>
-                  handleNextQuestion({
-                    previousId: current.id,
-                    preserveCategory: false,
-                  })
-                }
+                onClick={resetSeries}
               >
-                Questions aléatoires
+                Nouvelle série
               </button>
               <div className="quiz-progress">
                 {progressEntries.map((entry, index) => (
