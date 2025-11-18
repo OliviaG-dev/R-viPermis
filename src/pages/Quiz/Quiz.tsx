@@ -66,10 +66,10 @@ const Quiz = () => {
               <ArrowLeftIcon className="back-arrow" />
             </Link>
             <h1>
-              <img src="/logo.png" alt="RéviPermis" className="quiz-logo" />
               <span className="quiz-title-text">Quiz du permis</span>
               <TrafficLightIcon className="heading-icon" />
             </h1>
+            <img src="/logo.png" alt="RéviPermis" className="quiz-logo" />
           </div>
           <div>
             <p className="quiz-subtitle">
