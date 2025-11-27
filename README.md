@@ -56,6 +56,13 @@ RéviPermis est une application web moderne développée avec React et TypeScrip
 - **TypeScript ESLint** - Règles de linting spécifiques à TypeScript
 - **tsx** - Exécuteur TypeScript pour les scripts Node.js
 
+### Tests
+
+- **Vitest 4.0.14** - Framework de tests rapide et moderne
+- **Testing Library** - Tests orientés comportement pour React
+- **JSDOM** - Simulation du DOM pour les tests
+- **@vitest/coverage-v8** - Rapport de couverture de code
+
 ### Scripts de parsing
 
 - **pdf-parse 1.1.1** - Extraction de texte depuis les fichiers PDF
@@ -84,13 +91,16 @@ revipermis/
 │   │   ├── questions.json # Questions formatées (100 questions)
 │   │   └── questions.ts   # Interfaces TypeScript et données
 │   ├── hooks/             # Hooks personnalisés React
-│   │   └── useQuiz.ts    # Hook principal pour la logique du quiz
+│   │   ├── useQuiz.ts    # Hook principal pour la logique du quiz
+│   │   └── useQuiz.test.tsx # Tests du hook useQuiz
 │   ├── types/             # Interfaces et types TypeScript centralisés
 │   │   └── index.ts       # Tous les types du projet (Quiz, Questions, etc.)
 │   ├── utils/             # Fonctions utilitaires
-│   │   └── index.ts       # Fonctions utilitaires (shuffle, calculateScore, etc.)
+│   │   ├── index.ts       # Fonctions utilitaires (shuffle, calculateScore, etc.)
+│   │   └── index.test.ts  # Tests des fonctions utilitaires
 │   ├── App.tsx            # Composant racine avec lazy loading des routes
 │   └── main.tsx           # Point d'entrée de l'application
+├── vitest.setup.ts        # Configuration des tests
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
@@ -145,6 +155,14 @@ npm run preview      # Prévisualise la version de production
 
 ```bash
 npm run lint         # Vérifie le code avec ESLint
+```
+
+### Tests
+
+```bash
+npm run test         # Lance tous les tests une fois
+npm run test:watch   # Lance les tests en mode watch (relance automatique)
+npm run coverage     # Génère un rapport de couverture de code
 ```
 
 ### Parsing des questions
@@ -264,6 +282,7 @@ Le projet suit une architecture modulaire et maintenable :
 - **Utilitaires unifiés** (`src/utils/index.ts`) : Fonctions utilitaires partagées (shuffle, calculateScore, etc.)
 - **Code splitting** : Lazy loading des routes pour optimiser le bundle initial
 - **Séparation des responsabilités** : Logique métier séparée de la présentation
+- **Tests complets** : Suite de tests avec 91% de couverture pour garantir la qualité du code
 
 ### Structure des composants
 
@@ -287,6 +306,46 @@ src/
 └── utils/
     └── index.ts          # Fonctions utilitaires (shuffle, calculateScore)
 ```
+
+## 🧪 Tests
+
+Le projet inclut une suite de tests complète pour garantir la qualité et la fiabilité du code.
+
+### Couverture de code
+
+- **Statements (instructions)** : 91.09% ✅
+- **Branches (conditions)** : 75% ✅
+- **Functions (fonctions)** : 96.22% ✅
+- **Lines (lignes)** : 91.33% ✅
+
+### Tests disponibles
+
+**18 tests au total** couvrant :
+
+- ✅ **3 tests** pour les fonctions utilitaires (`shuffle`, `calculateScore`)
+- ✅ **15 tests** pour le hook `useQuiz` :
+  - Initialisation du quiz
+  - Validation des réponses (correctes et incorrectes)
+  - Navigation entre catégories
+  - Passage à la question suivante
+  - Affichage du résultat final
+  - Protection contre les erreurs (validation sans sélection, double validation, etc.)
+  - Calcul des scores et messages de résultat
+  - Navigation entre catégories déjà validées
+
+### Lancer les tests
+
+```bash
+# Lancer tous les tests
+npm run test
+
+# Mode watch (relance automatique pendant le développement)
+npm run test:watch
+
+# Voir la couverture de code
+npm run coverage
+```
+
 
 ## 📚 Documentation
 
