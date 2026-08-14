@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import questionsData from "../data/questions.json";
-import { shuffle } from "../utils";
+import { getScoreClass, shuffle } from "../utils";
 import type {
   QuizCategory,
   QuizQuestion,
@@ -552,22 +552,6 @@ export const useQuiz = () => {
     setShowResults(false);
     setCategory("vehicule");
   }, [current.id, pickRandomQuestion]);
-
-  const getScoreClass = useCallback((score: number | null): string => {
-    if (score === null) {
-      return "";
-    }
-    if (score <= 0) {
-      return " progress-chip--score-0";
-    }
-    if (score === 1) {
-      return " progress-chip--score-1";
-    }
-    if (score === 2) {
-      return " progress-chip--score-2";
-    }
-    return " progress-chip--score-3";
-  }, []);
 
   const handleAdvance = useCallback(() => {
     if (!pendingAdvance) return;

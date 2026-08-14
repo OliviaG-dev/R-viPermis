@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { shuffle, shuffleArray, calculateScore } from "./index";
+import { shuffle, shuffleArray, calculateScore, getScoreClass } from "./index";
 
 describe("utils/shuffle", () => {
   it("renvoie un nouveau tableau avec les mêmes éléments", () => {
@@ -48,6 +48,17 @@ describe("utils/calculateScore", () => {
   it("retourne 0 si le total est nul ou négatif", () => {
     expect(calculateScore(1, 0)).toBe(0);
     expect(calculateScore(2, -4)).toBe(0);
+  });
+});
+
+describe("utils/getScoreClass", () => {
+  it("retourne les classes CSS selon le score", () => {
+    expect(getScoreClass(null)).toBe("");
+    expect(getScoreClass(0)).toBe(" progress-chip--score-0");
+    expect(getScoreClass(1)).toBe(" progress-chip--score-1");
+    expect(getScoreClass(2)).toBe(" progress-chip--score-2");
+    expect(getScoreClass(3)).toBe(" progress-chip--score-3");
+    expect(getScoreClass(-1)).toBe(" progress-chip--score-0");
   });
 });
 

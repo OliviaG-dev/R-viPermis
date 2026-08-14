@@ -27,3 +27,19 @@ export const calculateScore = (correct: number, total: number): number => {
   }
   return Math.round((correct / total) * 100);
 };
+
+export const getScoreClass = (score: number | null): string => {
+  if (score === null) {
+    return "";
+  }
+  if (score <= 0) {
+    return " progress-chip--score-0";
+  }
+  if (score === 1) {
+    return " progress-chip--score-1";
+  }
+  if (score === 2) {
+    return " progress-chip--score-2";
+  }
+  return " progress-chip--score-3";
+};

@@ -1,5 +1,12 @@
 # 🚗 RéviPermis
 
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white)
+[![CI](https://github.com/OliviaG-dev/R-viPermis/actions/workflows/ci.yml/badge.svg)](https://github.com/OliviaG-dev/R-viPermis/actions/workflows/ci.yml)
+
 > Un quiz interactif et amusant pour réviser les questions officielles du permis de conduire français
 
 RéviPermis est une application web moderne développée avec React et TypeScript pour vous aider à réviser efficacement les 100 questions officielles de vérification technique du permis de conduire. L'application couvre les vérifications intérieures, les vérifications extérieures, les questions de sécurité routière (QSER) et les notions de premiers secours.
@@ -92,13 +99,19 @@ revipermis/
 │   │   └── questions.ts   # Interfaces TypeScript et données
 │   ├── hooks/             # Hooks personnalisés React
 │   │   ├── useQuiz.ts    # Hook principal pour la logique du quiz
-│   │   └── useQuiz.test.tsx # Tests du hook useQuiz
+│   │   └── useQuiz.test.tsx
+│   ├── test/              # Helpers et fixtures de tests uniquement
+│   │   ├── renderWithRouter.tsx
+│   │   └── fixtures/
 │   ├── types/             # Interfaces et types TypeScript centralisés
 │   │   └── index.ts       # Tous les types du projet (Quiz, Questions, etc.)
-│   ├── utils/             # Fonctions utilitaires
-│   │   ├── index.ts       # Fonctions utilitaires (shuffle, calculateScore, etc.)
-│   │   └── index.test.ts  # Tests des fonctions utilitaires
+│   ├── utils/             # Fonctions utilitaires (prod)
+│   │   ├── index.ts       # shuffle, calculateScore, getScoreClass
+│   │   ├── revision.ts    # Helpers de la page Révision
+│   │   ├── index.test.ts
+│   │   └── revision.test.ts
 │   ├── App.tsx            # Composant racine avec lazy loading des routes
+│   ├── App.test.tsx       # Tests de routage
 │   └── main.tsx           # Point d'entrée de l'application
 ├── vitest.setup.ts        # Configuration des tests
 ├── package.json
@@ -320,18 +333,7 @@ Le projet inclut une suite de tests complète pour garantir la qualité et la fi
 
 ### Tests disponibles
 
-**18 tests au total** couvrant :
-
-- ✅ **3 tests** pour les fonctions utilitaires (`shuffle`, `calculateScore`)
-- ✅ **15 tests** pour le hook `useQuiz` :
-  - Initialisation du quiz
-  - Validation des réponses (correctes et incorrectes)
-  - Navigation entre catégories
-  - Passage à la question suivante
-  - Affichage du résultat final
-  - Protection contre les erreurs (validation sans sélection, double validation, etc.)
-  - Calcul des scores et messages de résultat
-  - Navigation entre catégories déjà validées
+La suite couvre les utilitaires, le hook `useQuiz` et les pages React (Home, Quiz, Révision, routage App).
 
 ### Lancer les tests
 
@@ -346,6 +348,15 @@ npm run test:watch
 npm run coverage
 ```
 
+
+## CI/CD
+
+À chaque push sur `master`/`main` et sur chaque pull request, GitHub Actions exécute le workflow `.github/workflows/ci.yml` :
+
+1. `npm ci`
+2. `npm run lint`
+3. `npm run test`
+4. `npm run build`
 
 ## 📚 Documentation
 
