@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import type { QuizQuestion } from "../types";
+import type { QuizCategory, QuizQuestion } from "../types";
 
 vi.mock("../data/questions.json", () => ({
   default: [
@@ -48,6 +48,50 @@ vi.mock("../data/questions.json", () => ({
         multiple: false,
       },
     },
+    {
+      id: 3,
+      name: "Q3",
+      theme: "Vérifications intérieures",
+      vehicule: {
+        question: "Où se trouve le frein à main ?",
+        answer: {
+          text: "Entre les sièges avant",
+          image: "/Img/Q03.png",
+        },
+      },
+      qser: {
+        question: "Quelle est la vitesse sur autoroute ?",
+        answer: "130 km/h",
+        multiple: false,
+      },
+      secours: {
+        question: "Que faire si la victime saigne ?",
+        answer: "Comprimer la plaie",
+        multiple: false,
+      },
+    },
+    {
+      id: 4,
+      name: "Q4",
+      theme: "Vérifications extérieures",
+      vehicule: {
+        question: "Montrez le réservoir de lave-glace.",
+        answer: {
+          text: "Sous le capot, bocal translucide.",
+          image: "",
+        },
+      },
+      qser: {
+        question: "Pourquoi vérifier les niveaux ?",
+        answer: ["Sécurité", "Bon fonctionnement"],
+        multiple: true,
+      },
+      secours: {
+        question: "Quel numéro pour les urgences en Europe ?",
+        answer: "112",
+        multiple: false,
+      },
+    },
   ] as QuizQuestion[],
 }));
 
@@ -84,29 +128,73 @@ const mockQuestions: QuizQuestion[] = [
       multiple: false,
     },
   },
-  {
-    id: 2,
-    name: "Q2",
-    theme: "Vérifications extérieures",
-    vehicule: {
-      question: "Comment vérifier l'usure des pneus ?",
-      answer: {
-        text: "Regarder les témoins",
-        image: "/Img/Q02.png",
+    {
+      id: 2,
+      name: "Q2",
+      theme: "Vérifications extérieures",
+      vehicule: {
+        question: "Comment vérifier l'usure des pneus ?",
+        answer: {
+          text: "Regarder les témoins",
+          image: "/Img/Q02.png",
+        },
+      },
+      qser: {
+        question: "Que signifie un feu orange fixe ?",
+        answer: "Arrêt obligatoire sauf danger",
+        multiple: false,
+      },
+      secours: {
+        question: "Quel premier geste pour une victime consciente ?",
+        answer: ["Sécuriser la zone"],
+        multiple: false,
       },
     },
-    qser: {
-      question: "Que signifie un feu orange fixe ?",
-      answer: "Arrêt obligatoire sauf danger",
-      multiple: false,
+    {
+      id: 3,
+      name: "Q3",
+      theme: "Vérifications intérieures",
+      vehicule: {
+        question: "Où se trouve le frein à main ?",
+        answer: {
+          text: "Entre les sièges avant",
+          image: "/Img/Q03.png",
+        },
+      },
+      qser: {
+        question: "Quelle est la vitesse sur autoroute ?",
+        answer: "130 km/h",
+        multiple: false,
+      },
+      secours: {
+        question: "Que faire si la victime saigne ?",
+        answer: "Comprimer la plaie",
+        multiple: false,
+      },
     },
-    secours: {
-      question: "Quel premier geste pour une victime consciente ?",
-      answer: ["Sécuriser la zone"],
-      multiple: false,
+    {
+      id: 4,
+      name: "Q4",
+      theme: "Vérifications extérieures",
+      vehicule: {
+        question: "Montrez le réservoir de lave-glace.",
+        answer: {
+          text: "Sous le capot, bocal translucide.",
+          image: "",
+        },
+      },
+      qser: {
+        question: "Pourquoi vérifier les niveaux ?",
+        answer: ["Sécurité", "Bon fonctionnement"],
+        multiple: true,
+      },
+      secours: {
+        question: "Quel numéro pour les urgences en Europe ?",
+        answer: "112",
+        multiple: false,
+      },
     },
-  },
-];
+  ];
 
 describe("useQuiz hook", () => {
   beforeEach(() => {
@@ -319,7 +407,7 @@ describe("useQuiz hook", () => {
       ["vehicule", "qser", "secours"].forEach((cat) => {
         if (result.current.category !== cat) {
           act(() => {
-            result.current.onCategoryChange(cat as any);
+            result.current.onCategoryChange(cat as QuizCategory);
           });
         }
         const correct = result.current.answerChoices.find(
@@ -361,7 +449,7 @@ describe("useQuiz hook", () => {
       ["vehicule", "qser", "secours"].forEach((cat) => {
         if (result.current.category !== cat) {
           act(() => {
-            result.current.onCategoryChange(cat as any);
+            result.current.onCategoryChange(cat as QuizCategory);
           });
         }
         const correct = result.current.answerChoices.find(
@@ -502,7 +590,7 @@ describe("useQuiz hook", () => {
       ["vehicule", "qser", "secours"].forEach((cat) => {
         if (result.current.category !== cat) {
           act(() => {
-            result.current.onCategoryChange(cat as any);
+            result.current.onCategoryChange(cat as QuizCategory);
           });
         }
         const correct = result.current.answerChoices.find(
@@ -591,4 +679,256 @@ describe("useQuiz hook", () => {
     });
     expect(result.current.selectedChoices).not.toContain(correctChoice!.id);
   });
+
+  it("construit un QCM véhicule avec 3 images et l'option aucune", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    const imageChoices = result.current.answerChoices.filter(
+      (choice) => choice.kind === "image"
+    );
+    const noneChoice = result.current.answerChoices.find(
+      (choice) => choice.kind === "text"
+    );
+
+    expect(result.current.isVehicleCategory).toBe(true);
+    expect(imageChoices).toHaveLength(3);
+    expect(imageChoices.some((choice) => choice.isCorrect)).toBe(true);
+    expect(noneChoice?.text).toBe("Aucune des autres réponses");
+    expect(noneChoice?.isCorrect).toBe(false);
+  });
+
+  it("construit un QCM connaissance avec 4 choix texte", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    act(() => {
+      result.current.onCategoryChange("qser");
+    });
+
+    expect(result.current.isVehicleCategory).toBe(false);
+    expect(result.current.answerChoices).toHaveLength(4);
+    expect(
+      result.current.answerChoices.every((choice) => choice.kind === "text")
+    ).toBe(true);
+    expect(
+      result.current.answerChoices.filter((choice) => choice.isCorrect)
+    ).toHaveLength(1);
+  });
+
+  it("marque l'option aucune comme correcte quand le véhicule n'a pas d'image", () => {
+    vi.spyOn(Math, "random").mockReturnValue(0.8);
+    const { result } = renderHook(() => useQuiz());
+
+    expect(result.current.current.id).toBe(4);
+    const noneChoice = result.current.answerChoices.find(
+      (choice) => choice.text === "Aucune des autres réponses"
+    );
+    expect(noneChoice?.isCorrect).toBe(true);
+
+    act(() => {
+      result.current.toggleChoice(noneChoice!.id);
+    });
+    act(() => {
+      result.current.handleValidate();
+    });
+
+    expect(result.current.wasCorrect).toBe(true);
+  });
+
+  it("expose la progression initiale puis une pastille completed après une question", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    expect(result.current.progressEntries).toHaveLength(5);
+    expect(result.current.progressEntries[0]).toMatchObject({
+      value: "0/3",
+      state: "current",
+      score: 0,
+    });
+    expect(result.current.progressEntries[1]).toMatchObject({
+      value: "-/3",
+      state: "upcoming",
+      score: null,
+    });
+
+    completeAllCategories(result);
+
+    act(() => {
+      result.current.handleAdvance();
+    });
+
+    expect(result.current.progressEntries[0]).toMatchObject({
+      value: "3/3",
+      state: "completed",
+      score: 3,
+    });
+    expect(result.current.progressEntries[1].state).toBe("current");
+  });
+
+  it("ne fait rien si handleAdvance est appelé sans pendingAdvance", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    act(() => {
+      result.current.handleAdvance();
+    });
+
+    expect(result.current.category).toBe("vehicule");
+    expect(result.current.isValidated).toBe(false);
+    expect(result.current.pendingAdvance).toBeNull();
+  });
+
+  it("reset la validation via handleNextQuestion", () => {
+    const { result } = renderHook(() => useQuiz());
+    const correctChoice = result.current.answerChoices.find(
+      (choice) => choice.isCorrect
+    );
+
+    act(() => {
+      result.current.toggleChoice(correctChoice!.id);
+    });
+    act(() => {
+      result.current.handleValidate();
+    });
+
+    act(() => {
+      result.current.handleNextQuestion({ finalizeCurrent: true });
+    });
+
+    expect(result.current.category).toBe("vehicule");
+    expect(result.current.isValidated).toBe(false);
+    expect(result.current.selectedChoices).toEqual([]);
+    expect(result.current.categoryStatuses.vehicule).toBeNull();
+    expect(result.current.questionScores).toHaveLength(1);
+  });
+
+  it("conserve la catégorie avec handleNextQuestion preserveCategory", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    act(() => {
+      result.current.onCategoryChange("secours");
+    });
+
+    act(() => {
+      result.current.handleNextQuestion({ preserveCategory: true });
+    });
+
+    expect(result.current.category).toBe("secours");
+    expect(result.current.isValidated).toBe(false);
+  });
+
+  it("remplace le choix précédent (sélection unique)", () => {
+    const { result } = renderHook(() => useQuiz());
+    const [firstChoice, secondChoice] = result.current.answerChoices;
+
+    act(() => {
+      result.current.toggleChoice(firstChoice.id);
+    });
+    act(() => {
+      result.current.toggleChoice(secondChoice.id);
+    });
+
+    expect(result.current.selectedChoices).toEqual([secondChoice.id]);
+  });
+
+  it("réinitialise la sélection en changeant vers une catégorie non validée", () => {
+    const { result } = renderHook(() => useQuiz());
+    const firstChoice = result.current.answerChoices[0];
+
+    act(() => {
+      result.current.toggleChoice(firstChoice.id);
+    });
+
+    act(() => {
+      result.current.onCategoryChange("qser");
+    });
+
+    expect(result.current.selectedChoices).toEqual([]);
+    expect(result.current.isValidated).toBe(false);
+    expect(result.current.wasCorrect).toBe(false);
+  });
+
+  it("affiche le message 'bon début' après une question parfaite (20%)", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    completeAllCategories(result);
+    act(() => {
+      result.current.handleAdvance();
+    });
+
+    expect(result.current.seriesPercentage).toBe(20);
+    expect(result.current.resultMessage).toContain("bon début");
+  });
+
+  it("affiche le message 'Bien joué' après trois questions parfaites (60%)", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    for (let index = 0; index < 3; index += 1) {
+      completeAllCategories(result);
+      act(() => {
+        result.current.handleAdvance();
+      });
+    }
+
+    expect(result.current.seriesPercentage).toBe(60);
+    expect(result.current.resultMessage).toContain("Bien joué");
+  });
+
+  it("affiche le message Excellent après quatre questions parfaites (80%)", () => {
+    const { result } = renderHook(() => useQuiz());
+
+    for (let index = 0; index < 4; index += 1) {
+      completeAllCategories(result);
+      act(() => {
+        result.current.handleAdvance();
+      });
+    }
+
+    expect(result.current.seriesPercentage).toBe(80);
+    expect(result.current.resultMessage).toContain("Excellent");
+  });
+
+  it("joint les réponses multiples QSER en une seule solution", () => {
+    vi.spyOn(Math, "random").mockReturnValue(0.8);
+    const { result } = renderHook(() => useQuiz());
+
+    act(() => {
+      result.current.onCategoryChange("qser");
+    });
+
+    expect(result.current.correctAnswerText()).toBe(
+      "Sécurité Bon fonctionnement"
+    );
+  });
 });
+
+const CATEGORIES: QuizCategory[] = ["vehicule", "qser", "secours"];
+
+type QuizHookResult = {
+  current: ReturnType<typeof useQuiz>;
+};
+
+function completeAllCategories(result: QuizHookResult): void {
+  CATEGORIES.forEach((category) => {
+    if (result.current.category !== category) {
+      act(() => {
+        result.current.onCategoryChange(category);
+      });
+    }
+
+    const correct = result.current.answerChoices.find(
+      (choice) => choice.isCorrect
+    );
+    expect(correct).toBeDefined();
+
+    act(() => {
+      result.current.toggleChoice(correct!.id);
+    });
+    act(() => {
+      result.current.handleValidate();
+    });
+
+    if (category !== "secours") {
+      act(() => {
+        result.current.handleAdvance();
+      });
+    }
+  });
+}
