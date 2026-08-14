@@ -7,18 +7,8 @@ import {
   RandomIcon,
   ArrowRightIcon,
 } from "../../components/Icons";
+import { formatAnswer, getMobileThemeLabel } from "../../utils/revision";
 import "./Revision.css";
-
-const getMobileThemeLabel = (theme: string) => {
-  const normalizedTheme = theme.toLowerCase();
-  if (normalizedTheme.includes("intérieur")) {
-    return "Interne";
-  }
-  if (normalizedTheme.includes("extérieur")) {
-    return "Externe";
-  }
-  return theme;
-};
 
 const Revision = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,13 +42,6 @@ const Revision = () => {
       ...prev,
       [section]: !prev[section],
     }));
-  };
-
-  const formatAnswer = (answer: string | string[]): string => {
-    if (Array.isArray(answer)) {
-      return answer.join("\n");
-    }
-    return answer;
   };
 
   return (
