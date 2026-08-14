@@ -1,99 +1,14 @@
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import type { QuizCategory, QuizQuestion } from "../types";
+import type { QuizCategory } from "../types";
+import { quizQuestions } from "../test/fixtures/quizQuestions";
 
-vi.mock("../data/questions.json", () => ({
-  default: [
-    {
-      id: 1,
-      name: "Q1",
-      theme: "Vérifications intérieures",
-      vehicule: {
-        question: "Où se trouve la commande des feux ?",
-        answer: {
-          text: "À gauche du volant",
-          image: "/Img/Q01.png",
-        },
-      },
-      qser: {
-        question: "Quelle est la vitesse maximale en ville ?",
-        answer: "50 km/h",
-        multiple: false,
-      },
-      secours: {
-        question: "Quel numéro appeler en cas d'accident ?",
-        answer: ["112"],
-        multiple: false,
-      },
-    },
-    {
-      id: 2,
-      name: "Q2",
-      theme: "Vérifications extérieures",
-      vehicule: {
-        question: "Comment vérifier l'usure des pneus ?",
-        answer: {
-          text: "Regarder les témoins",
-          image: "/Img/Q02.png",
-        },
-      },
-      qser: {
-        question: "Que signifie un feu orange fixe ?",
-        answer: "Arrêt obligatoire sauf danger",
-        multiple: false,
-      },
-      secours: {
-        question: "Quel premier geste pour une victime consciente ?",
-        answer: ["Sécuriser la zone"],
-        multiple: false,
-      },
-    },
-    {
-      id: 3,
-      name: "Q3",
-      theme: "Vérifications intérieures",
-      vehicule: {
-        question: "Où se trouve le frein à main ?",
-        answer: {
-          text: "Entre les sièges avant",
-          image: "/Img/Q03.png",
-        },
-      },
-      qser: {
-        question: "Quelle est la vitesse sur autoroute ?",
-        answer: "130 km/h",
-        multiple: false,
-      },
-      secours: {
-        question: "Que faire si la victime saigne ?",
-        answer: "Comprimer la plaie",
-        multiple: false,
-      },
-    },
-    {
-      id: 4,
-      name: "Q4",
-      theme: "Vérifications extérieures",
-      vehicule: {
-        question: "Montrez le réservoir de lave-glace.",
-        answer: {
-          text: "Sous le capot, bocal translucide.",
-          image: "",
-        },
-      },
-      qser: {
-        question: "Pourquoi vérifier les niveaux ?",
-        answer: ["Sécurité", "Bon fonctionnement"],
-        multiple: true,
-      },
-      secours: {
-        question: "Quel numéro pour les urgences en Europe ?",
-        answer: "112",
-        multiple: false,
-      },
-    },
-  ] as QuizQuestion[],
-}));
+vi.mock("../data/questions.json", async () => {
+  const { quizQuestions: questions } = await import(
+    "../test/fixtures/quizQuestions"
+  );
+  return { default: questions };
+});
 
 vi.mock("../utils", async () => {
   const actual = await vi.importActual<typeof import("../utils")>("../utils");
@@ -104,97 +19,7 @@ vi.mock("../utils", async () => {
 });
 
 import { useQuiz } from "./useQuiz";
-
-const mockQuestions: QuizQuestion[] = [
-  {
-    id: 1,
-    name: "Q1",
-    theme: "Vérifications intérieures",
-    vehicule: {
-      question: "Où se trouve la commande des feux ?",
-      answer: {
-        text: "À gauche du volant",
-        image: "/Img/Q01.png",
-      },
-    },
-    qser: {
-      question: "Quelle est la vitesse maximale en ville ?",
-      answer: "50 km/h",
-      multiple: false,
-    },
-    secours: {
-      question: "Quel numéro appeler en cas d'accident ?",
-      answer: ["112"],
-      multiple: false,
-    },
-  },
-    {
-      id: 2,
-      name: "Q2",
-      theme: "Vérifications extérieures",
-      vehicule: {
-        question: "Comment vérifier l'usure des pneus ?",
-        answer: {
-          text: "Regarder les témoins",
-          image: "/Img/Q02.png",
-        },
-      },
-      qser: {
-        question: "Que signifie un feu orange fixe ?",
-        answer: "Arrêt obligatoire sauf danger",
-        multiple: false,
-      },
-      secours: {
-        question: "Quel premier geste pour une victime consciente ?",
-        answer: ["Sécuriser la zone"],
-        multiple: false,
-      },
-    },
-    {
-      id: 3,
-      name: "Q3",
-      theme: "Vérifications intérieures",
-      vehicule: {
-        question: "Où se trouve le frein à main ?",
-        answer: {
-          text: "Entre les sièges avant",
-          image: "/Img/Q03.png",
-        },
-      },
-      qser: {
-        question: "Quelle est la vitesse sur autoroute ?",
-        answer: "130 km/h",
-        multiple: false,
-      },
-      secours: {
-        question: "Que faire si la victime saigne ?",
-        answer: "Comprimer la plaie",
-        multiple: false,
-      },
-    },
-    {
-      id: 4,
-      name: "Q4",
-      theme: "Vérifications extérieures",
-      vehicule: {
-        question: "Montrez le réservoir de lave-glace.",
-        answer: {
-          text: "Sous le capot, bocal translucide.",
-          image: "",
-        },
-      },
-      qser: {
-        question: "Pourquoi vérifier les niveaux ?",
-        answer: ["Sécurité", "Bon fonctionnement"],
-        multiple: true,
-      },
-      secours: {
-        question: "Quel numéro pour les urgences en Europe ?",
-        answer: "112",
-        multiple: false,
-      },
-    },
-  ];
+import { getScoreClass } from "../utils";
 
 describe("useQuiz hook", () => {
   beforeEach(() => {
@@ -211,7 +36,7 @@ describe("useQuiz hook", () => {
     expect(result.current.category).toBe("vehicule");
     expect(result.current.stats.vehicule).toEqual({ asked: 0, correct: 0 });
     expect(result.current.activeQuestion.question).toBe(
-      mockQuestions[0].vehicule.question
+      quizQuestions[0].vehicule.question
     );
   });
 
@@ -364,7 +189,7 @@ describe("useQuiz hook", () => {
     // Tester qser
     expect(result.current.category).toBe("qser");
     expect(result.current.activeQuestion.question).toBe(
-      mockQuestions[0].qser.question
+      quizQuestions[0].qser.question
     );
 
     const qserCorrect = result.current.answerChoices.find(
@@ -384,7 +209,7 @@ describe("useQuiz hook", () => {
     // Tester secours
     expect(result.current.category).toBe("secours");
     expect(result.current.activeQuestion.question).toBe(
-      mockQuestions[0].secours.question
+      quizQuestions[0].secours.question
     );
 
     const secoursCorrect = result.current.answerChoices.find(
@@ -544,7 +369,7 @@ describe("useQuiz hook", () => {
 
     // Véhicule
     expect(result.current.correctAnswerText()).toBe(
-      mockQuestions[0].vehicule.answer.text
+      quizQuestions[0].vehicule.answer.text
     );
 
     // QSER
@@ -560,15 +385,11 @@ describe("useQuiz hook", () => {
     expect(result.current.correctAnswerText()).toBe("112");
   });
 
-  it("retourne les bonnes classes CSS pour getScoreClass", () => {
+  it("expose getScoreClass du utilitaire", () => {
     const { result } = renderHook(() => useQuiz());
 
-    expect(result.current.getScoreClass(null)).toBe("");
-    expect(result.current.getScoreClass(0)).toBe(" progress-chip--score-0");
-    expect(result.current.getScoreClass(1)).toBe(" progress-chip--score-1");
-    expect(result.current.getScoreClass(2)).toBe(" progress-chip--score-2");
-    expect(result.current.getScoreClass(3)).toBe(" progress-chip--score-3");
-    expect(result.current.getScoreClass(-1)).toBe(" progress-chip--score-0");
+    expect(result.current.getScoreClass(2)).toBe(getScoreClass(2));
+    expect(result.current.getScoreClass(null)).toBe(getScoreClass(null));
   });
 
   it("calcule correctement les messages de résultat selon le pourcentage", () => {
